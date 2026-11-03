@@ -1,0 +1,64 @@
+name: Cache Rule Request / Classification Feedback
+description: Propose a new application, developer, or AI cache location, or report a false-positive path
+title: "[Rule]: "
+labels: ["rules", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help expand JAM Cleaner's safe cache coverage or refine an existing classification (`Safe Auto-Select` vs `Review Recommended` vs `Blocked`).
+
+  - type: dropdown
+    id: rule-type
+    attributes:
+      label: Request Type
+      options:
+        - Add a new cache target (New Rule)
+        - Reclassify an existing item (e.g., Safe -> Review or Blocked)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scan Scope & Category
+      options:
+        - General — Application Caches
+        - General — Browser Caches
+        - General — Web & Electron App Caches
+        - General — System Logs & Diagnostics
+        - General — Preference & State Hygiene
+        - General — Installer Packages
+        - Developer — Xcode & Developer Caches
+        - AI — AI & Agent Runtimes
+    validations:
+      required: true
+
+  - type: input
+    id: path-pattern
+    attributes:
+      label: Filesystem Path Pattern
+      description: Exact tilde-relative path on macOS.
+      placeholder: "e.g., ~/Library/Caches/com.example.tool or ~/.cache/example-hub"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: confidence
+    attributes:
+      label: Recommended Safety Tier
+      description: Should this path be auto-selected by default or require explicit user review?
+      options:
+        - Safe Auto-Select (100% regenerable cache/logs; zero user data or heavy re-download)
+        - Review Recommended (Large download like LLM weights/Simulators, or user installer)
+        - Blocked (Contains user credentials, sessions, databases, or documents — never touch)
+    validations:
+      required: true
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: Details & Regeneration Behavior
+      description: Explain what application creates this folder, what happens when it is deleted, and whether any sibling files in the same folder need to be excluded.
+    validations:
+      required: true

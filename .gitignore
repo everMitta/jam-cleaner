@@ -1,0 +1,37 @@
+# Swift Package Manager & Build Output
+.build/
+.swiftpm/
+build/
+DerivedData/
+Packages/
+
+# Xcode
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+*.xccheckout
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Code Signing & Distribution Artifacts
+*.pkg
+*.dmg
+*.notarize.zip
+*-notarize.zip
+*.provisionprofile
+*.cer
+*.p12
+
+# macOS Finder & System Metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Local Scratch & Coverage
+*.profraw
+*.profdata
+/tmp/

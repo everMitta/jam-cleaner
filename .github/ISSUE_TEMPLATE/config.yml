@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security or Data-Safety Vulnerability
+    url: https://github.com/everMitta/jam-cleaner/blob/main/SECURITY.md
+    about: Please review SECURITY.md to report any path-classification or exclusion-bypass vulnerability privately.

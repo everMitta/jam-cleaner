@@ -1,0 +1,54 @@
+name: Bug Report
+description: Report a bug, crash, UI glitch, or unexpected behavior in JAM Cleaner
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! If you are reporting a safety or data-loss issue, please see [`SECURITY.md`](../../SECURITY.md).
+
+  - type: input
+    id: macos-version
+    attributes:
+      label: macOS Version & Architecture
+      description: What macOS version and chip architecture are you running?
+      placeholder: "e.g., macOS 26.0 (Apple M3 Max / arm64)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Affected Area / Scan Category
+      options:
+        - UI / Progress Telemetry
+        - Application Caches
+        - Browser Caches
+        - Web & Electron App Caches
+        - Xcode & Developer Caches
+        - AI & Agent Runtimes
+        - System Logs & Diagnostics
+        - Preference & State Hygiene
+        - Installer Packages
+        - SafeTrashCleaner / Space Reclamation
+        - Localization (EN / ES / FR)
+        - Build / Packaging Script
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear and concise description of the problem and how to reproduce it.
+      placeholder: "1. Select General and Developer scopes...\n2. Click Start Scan..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: cli-output
+    attributes:
+      label: CLI Summary or Logs (Optional)
+      description: Output from `swift run MacSweep --print-summary` (redact any personal paths if needed).
+      render: text

@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build, Test & Package (macOS)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show Swift version
+        run: swift --version
+
+      - name: Lint Apple Privacy Manifest & Entitlements
+        run: |
+          plutil -lint Config/PrivacyInfo.xcprivacy
+          plutil -lint Config/MacSweep.Direct.entitlements
+          plutil -lint Config/MacSweep.AppStore.entitlements
+
+      - name: Run XCTest Unit Test Suite with Code Coverage
+        run: make coverage
+
+      - name: Package JAM Cleaner.app Bundle
+        run: |
+          ./scripts/build_app.sh
+          plutil -lint "build/JAM Cleaner.app/Contents/Info.plist"
+          plutil -lint "build/JAM Cleaner.app/Contents/Resources/PrivacyInfo.xcprivacy"
+          codesign --verify --deep --strict "build/JAM Cleaner.app"
